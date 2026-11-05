@@ -1,0 +1,224 @@
+@import "tailwindcss";
+@import "tailwindcss-safe-area";
+
+@theme {
+  /* 45+ readability pass (2026-11-02): the whole type scale is
+     raised one step. The smallest text in the app (text-xs —
+     badges, chips, labels, secondary lines) is now 14px, small
+     body text (text-sm) is 16px, and base body text (text-base)
+     is 18px with generous line-height, so nothing the user has
+     to read sits at the old 10–14px sizes. */
+  --text-xs: 14px;
+  --text-xs--line-height: 20px;
+  --text-sm: 16px;
+  --text-sm--line-height: 24px;
+  --text-base: 18px;
+  --text-base--line-height: 28px;
+  --text-lg: 20px;
+  --text-lg--line-height: 30px;
+  --text-xl: 22px;
+  --text-xl--line-height: 32px;
+  --text-2xl: 26px;
+  --text-2xl--line-height: 34px;
+  --text-3xl: 30px;
+  --text-3xl--line-height: 36px;
+  --text-4xl: 36px;
+  --text-4xl--line-height: 40px;
+  --text-5xl: 48px;
+  --text-5xl--line-height: 52px;
+  --font-display: ui-sans-system, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: ui-sans-system, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  font-family: var(--font-sans);
+}
+
+/* North Shore sand reaches the very edges (overscroll, safe
+   areas). Sand pass (2026-11-03, at Erin's direction, colour-
+   matched to her North Shore beach photos): the warm light tan
+   sand in the background of those photos is now the main
+   background and surface family, with a soft golden light at
+   the top corner and a hint of bright sky blue at the top —
+   the blue of the sky and of her blue-and-white striped
+   bikini in the same photos. The gradient is decoration only;
+   every surface that carries text keeps its own solid token
+   colour and contrast. */
+body {
+  background:
+    radial-gradient(120% 55% at 88% -5%, rgba(201, 169, 89, 0.28), transparent 60%),
+    radial-gradient(95% 60% at 50% -12%, rgba(53, 160, 232, 0.20), transparent 65%),
+    linear-gradient(180deg, #f7e7c3 0%, var(--bg) 34%, #e6cf9e 100%);
+  background-attachment: fixed;
+  line-height: 1.55;
+}
+
+/* Raised card surface (sand pass): a sunlit top edge, a soft
+   sand gradient down the card, and a warm soft shadow
+   underneath, so the card lifts off the beach like something
+   you could pick up. Dark ink text contrast is unchanged. */
+.surface-3d {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 46%),
+    linear-gradient(180deg, var(--surface-alt), var(--surface));
+  box-shadow:
+    0 14px 30px rgba(101, 78, 32, 0.22),
+    0 3px 8px rgba(101, 78, 32, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+/* Generated date-plan card: the richest island surface in the
+   app — golden light from the top corner, a bright sky-blue
+   lift, and a warm gold rim — over the same sand tokens, so
+   dark ink plan text keeps its full contrast and stays
+   readable at 45+ sizes. The red hibiscus accent and the
+   generated picture sit on this surface; the gradient is
+   decoration only, the base colours underneath are the solid
+   surface tokens. */
+.date-plan-surface {
+  border: 1px solid rgba(138, 106, 28, 0.55);
+  background-image:
+    radial-gradient(90% 60% at 92% -10%, rgba(201, 169, 89, 0.30), transparent 55%),
+    linear-gradient(180deg, rgba(53, 160, 232, 0.14), rgba(53, 160, 232, 0) 46%),
+    linear-gradient(165deg, var(--surface-alt), var(--surface) 62%, #f7e7c3);
+  box-shadow:
+    0 14px 30px rgba(101, 78, 32, 0.22),
+    0 3px 8px rgba(101, 78, 32, 0.16),
+    0 0 18px rgba(201, 169, 89, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+/* The gold present seal: a warm golden glow and a soft drop
+   shadow, so the emblem reads as a real seal sitting on the
+   app, not a flat sticker. The seal itself is unchanged. */
+.seal-glow {
+  box-shadow:
+    0 0 22px rgba(201, 169, 89, 0.55),
+    0 8px 18px rgba(101, 78, 32, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+:root {
+  color-scheme: light;
+  /* North Shore sand (2026-11-03, at Erin's direction, colour-
+     matched to her beach photos): the warm light tan sand from
+     the photos (sampled around #f0d9ab / #eccfa8) is the main
+     background (--bg) and the surface family — cards are a
+     lighter creamy sand, inset boxes a deeper sand. Text flips
+     to dark ocean ink (--text) so everything reads on sand;
+     secondary text is a warm dark taupe (--dim). The blue is
+     the bright sky / bikini-stripe blue from the same photos
+     (sky ~#35a0e8): --sky carries that bright blue as a
+     highlight, and --ocean / --accent carry its readable form
+     #1464b0 (white on it ~5.9:1, and ~5.5:1 as text on sand) —
+     blue is a SECONDARY accent only (chips, the outgoing-chat
+     alternative, borders, links), never the main background.
+     The deep ocean blue #0a2748 survives only inside the ink
+     family (--accent-ink / --text are its descendants) and in
+     the gold seal's black present. The light chat-bubble pink
+     #fdb9de stays the accent on buttons / badges / bubbles with
+     dark ink on it (~8:1); pink used AS text on sand must read,
+     so --pink-light is its deep form #a31e6d (~7:1 on cards).
+     --gold is a bronze #8a6a1c so gold text and borders read on
+     sand (gold-chip backgrounds in the app now carry white
+     text); the gold present seal keeps its own champagne gold.
+     --danger / --coral-text are the dark forms of the reds so
+     alert text reads on sand; --danger-bg keeps white text. */
+  --bg: #f0d9ab;
+  --surface: #fffaf0;
+  --surface-alt: #f7e7c3;
+  --text: #18304d;
+  --dim: #5f5138;
+  --border: #c8ab72;
+  --accent: #1464b0;
+  --accent-ink: #18304d;
+  /* Bright sky blue from Erin's photos — the lift/highlight
+     tone. Highlight and large shapes only: it never carries
+     small text (its readable form is --ocean). */
+  --sky: #35a0e8;
+  --pink-accent: #fdb9de;
+  --pink-deep: #f7a8d8;
+  --pink-light: #a31e6d;
+  --ocean: #1464b0;
+  --ocean-light: #1464b0;
+  --coral: #c81e3a;
+  --coral-text: #b91f36;
+  --pink: #fdb9de;
+  --gold: #8a6a1c;
+  --danger: #b4232a;
+  --danger-bg: #b4232a;
+  --nav-bg: #fff6e0;
+  --nav-ink: #5f5138;
+  --radius: 20px;
+  --space-surface: var(--surface);
+  --space-surface-alt: var(--surface-alt);
+  --space-muted: var(--dim);
+  --space-border: var(--border);
+  --space-accent: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Sand is the theme in both system modes (2026-11-03): a
+       dark-mode phone must not bring the deep ocean background
+       back. Same North Shore sand tokens as :root. */
+    --bg: #f0d9ab;
+    --surface: #fffaf0;
+    --surface-alt: #f7e7c3;
+    --text: #18304d;
+    --dim: #5f5138;
+    --border: #c8ab72;
+    --accent: #1464b0;
+    --accent-ink: #18304d;
+    --pink-accent: #fdb9de;
+    --pink-deep: #f7a8d8;
+    --pink-light: #a31e6d;
+    --ocean: #1464b0;
+    --ocean-light: #1464b0;
+    --coral: #c81e3a;
+    --coral-text: #b91f36;
+    --pink: #fdb9de;
+    --gold: #8a6a1c;
+    --danger: #b4232a;
+    --danger-bg: #b4232a;
+    --nav-bg: #fff6e0;
+    --nav-ink: #5f5138;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  font-weight: 800;
+}
+
+/* Map pins — clean style: white / sky blue / red, no glow.
+   Sized up slightly in the 45+ pass so the letter reads. */
+.pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  border: 2px solid #18304d;
+  background: #ffffff;
+  color: #18304d;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+
+.pin--you {
+  background: var(--ocean);
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.pin--on {
+  outline: 3px solid #18304d;
+  outline-offset: 2px;
+}
